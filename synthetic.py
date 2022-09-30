@@ -84,6 +84,12 @@ parser.add_argument(
     ]
 )
 
+parser.add_argument(
+    "read_percentage",
+    type=int,
+    help="Percentage of read requests in the generated traffic."
+)
+
 args = parser.parse_args()
 
 cache_hierarchy = MESITwoLevelCacheHierarchy(
@@ -99,7 +105,7 @@ cache_hierarchy = MESITwoLevelCacheHierarchy(
 memory = HBM2Stack()
 
 generator = generator_factory(
-    args.generator_class, memory.get_size()
+    args.generator_class, 100, memory.get_size()
 )
 
 # We use the Test Board. This is a special board to run traffic generation
